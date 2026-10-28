@@ -1,22 +1,5 @@
 # Officer Extendedest
 
-Respec your officers with **mastery exp**.
-
-Officers at max level normally throw away every point of exp they earn. With this mod they keep earning it as
-**mastery exp**, which can be spent to respec their combat skills.
-
-## Mastery exp
-- Officers continue earning exp at max level as **mastery exp**, 1:1 with the exp they would have gained from battles.
-- An additional 10% of all mastery exp earned is also gained as **global mastery exp**, a fleet-wide pool.
-- Global mastery exp may substitute for officer mastery exp when an officer doesn't have enough of their own.
-- After a battle, each officer's mastery exp and the total global mastery exp gained are listed with the other
-  officer exp gains, before your own.
-- Mastery exp is shown in a few places:
-  - The officer level bar fills up in green as an officer's mastery exp approaches their respec cost, in the officer
-    picker and the officer hover tooltip. Hovering it in the officer picker shows the exact amount.
-  - The officer picker shows your global mastery exp above the officer count.
-
-## Respec
 - Respec officers using a new system called "mastery experience".
 - Mastery experience is gained per-officer from combat while at max level.
 - An additional 10% of mastery exp gained is gained as global mastery exp.
