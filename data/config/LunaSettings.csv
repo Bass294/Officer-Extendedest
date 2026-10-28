@@ -1,0 +1,5 @@
+fieldID,fieldName,fieldType,defaultValue,secondaryValue,fieldDescription,minValue,maxValue,tab
+oee_headerMastery,Mastery exp,Header,Mastery exp,,,,,
+oee_masteryXPMult,Mastery exp rate,Double,1,,Officers continue earning exp at max level as mastery exp. Multiplies the mastery exp gained from each point of exp earned past max level (Default: 1).,0,10,
+oee_globalMasteryFraction,Global mastery exp rate,Double,0.1,,Fraction of mastery exp earned that is additionally gained as global mastery exp. Global mastery exp may substitute for officer mastery exp (Default: 0.1).,0,1,
+oee_respecCostMult,Respec cost multiplier,Double,1,,Multiplies the mastery exp a respec costs. At 1 a respec costs the exp needed to reach the officer's level from level 1 (Default: 1).,0,10,

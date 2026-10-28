@@ -1,0 +1,12 @@
+{
+  "masterVersionFile": "https://raw.githubusercontent.com/Bass294/Officer-Extendedest/main/officer_extendedest.version",
+  "modName": "Officer Extendedest",
+  "modVersion":
+  {
+    "major":0,
+    "minor":1,
+    "patch":0
+  },
+  "directDownloadURL": "https://github.com/Bass294/Officer-Extendedest/releases/latest/download/Officer_Extendedest.zip",
+  "changelogURL":"https://raw.githubusercontent.com/Bass294/Officer-Extendedest/main/changelog.txt"
+}

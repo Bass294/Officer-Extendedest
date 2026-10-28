@@ -1,0 +1,15 @@
+{
+    "id": "officer_extendedest",
+    "name": "Officer Extendedest",
+    "author": "Bass",
+    "utility": "false",
+    "version": "0.1",
+    "description": "Officers at maximum level bank their experience as mastery experience, which can be spent to respec their skills.",
+    "gameVersion": "0.98a-RC8",
+    "jars": ["jars/OfficerExtendedest.jar"],
+    "dependencies": [
+        {"id": "patchlib", "name": "! PatchLib !"},
+        {"id": "lunalib", "name": "LunaLib"},
+    ],
+    "modPlugin": "data.scripts.oee_ModPlugin",
+}
