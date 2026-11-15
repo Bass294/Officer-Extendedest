@@ -2,7 +2,7 @@
 
 Starsector mod (0.98a-RC8). Id `officer_extendedest`, prefix `oee_`. Java in `data/scripts` (package `data.scripts`),
 compiled into `jars/OfficerExtendedest.jar` by `build.sh`. Depends on PatchLib (compiled against
-`! PatchLib !-1.0.1/jars/PatchLibAPI.jar`) and LunaLib.
+`! PatchLib ! -1.1.0/jars/PatchLibAPI.jar`) and LunaLib (2.1.0); `mod_info.json` requires those versions.
 
 ## What it does
 
@@ -30,15 +30,17 @@ any flat bonus it left on the player's officer number stat (modifier id `officer
 
 The officer row class is matched by package `com.fs.starfarer.coreui` plus its methods `updateStatusString`,
 `isPastMax`, `getOfficerData`; the button hooks `recreate()` and reads the row's `CaptainPickerDialog` field.
-The button position copies vanilla's row layout (Mentor slot: 203x20, 7 px from the right, 20 px from the bottom).
+The button position copies vanilla's row layout (Mentor slot: 203x20, 7 px from the right, 20 px from the bottom;
+in the picker's compact view, read from the row's `isCompactMode()`, 100x17, 210 px from the right, 24 px from the top,
+left of "Make skills elite...").
 
-`patches/oee_CaptainPickerMasteryPatch` hooks `CaptainPickerDialog.sizeChanged` (2 params) and adds a "Global mastery
-experience: X" line above vanilla's "Officers: x / y" label, found among `getInnerPanel().getChildrenCopy()` by its
+`patches/oee_CaptainPickerMasteryPatch` hooks `CaptainPickerDialog.recreate()` (0.98.5; 0.98a used `sizeChanged`) and adds a "Global mastery
+experience: X" line above vanilla's officer counter ("Active duty: x / y, ..." in 0.98.5, "Officers: x / y" in 0.98a), found among `getInnerPanel().getChildrenCopy()` by its
 text prefix; skipped when that label is hidden (AI core picking).
 
 `patches/oee_LevelBarPatch` targets the officer level bar (0.98a-RC8: `com.fs.starfarer.coreui.null`, matched by
 package + `UIPanelAPI` + `getBar`/`getLabel`), used by picker rows and the officer hover tooltip. After its
-constructor (5 params) and every `advanceImpl`, for respec-eligible officers in the player's fleet it finds the child
+constructor (6 params in 0.98.5, 5 in 0.98a) and every `advanceImpl`, for respec-eligible officers in the player's fleet it finds the child
 with `setCurrWithFraction(float, Color, float)` and calls it with (0, story color, mastery / cost), and where vanilla
 set a hover tooltip (`getTooltip` non-null: picker rows only) replaces it via `addTooltipTo`, re-replacing whenever
 vanilla rebuilds its own.

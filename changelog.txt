@@ -1,2 +1,5 @@
+Version 0.2
+- Update for 0.98.5, no other functional changes.
+
 Version 0.1
 - Initial release

@@ -58,7 +58,8 @@ public class oee_LevelBarPatch {
     // a throwaway tooltip maker: addTooltipTo attaches to whatever component it is given
     private static TooltipMakerAPI tooltipMaker;
 
-    @After(target = @MethodMatch(methodType = MethodType.CONSTRUCTOR, parameterCount = 5))
+    // 0.98.5: (Person, float, float, boolean, boolean, boolean); 0.98a had 5 parameters
+    @After(target = @MethodMatch(methodType = MethodType.CONSTRUCTOR, parameterCount = 6))
     public static void afterConstruct(AfterContext context) {
         apply(context);
     }

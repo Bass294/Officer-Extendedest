@@ -26,12 +26,14 @@ import java.util.List;
 /**
  * The officer picker: a "Global mastery experience: X" line right above vanilla's "Officers: x / y" counter at the
  * bottom left, styled like it (small insignia font, gray), with the amount in the story point color and a tooltip.
- * sizeChanged rebuilds the picker's inner panel from scratch (clearChildren first), so the line is added after it.
+ * recreate() rebuilds the picker's inner panel from scratch (clearChildren first), so the line is added after it.
+ * 0.98.5: recreate() is called from sizeChanged and after clicks in the picker, and the counter reads
+ * "Active duty: x / y, inactive: ..." (0.98a: "Officers: x / y").
  */
 @Patch(target = @ClassMatch(typeName = "com.fs.starfarer.coreui.CaptainPickerDialog"))
 public class oee_CaptainPickerMasteryPatch {
 
-    private static final String OFFICERS_PREFIX = "Officers:";
+    private static final String[] COUNTER_PREFIXES = {"Active duty:", "Officers:"};
     private static final String PREFIX = "Global mastery experience: ";
     private static final float WIDTH = 400f;
     private static final float HEIGHT = 20f;
@@ -39,8 +41,10 @@ public class oee_CaptainPickerMasteryPatch {
     private static final MethodQuerySpec GET_INNER_PANEL = MethodQuery.create().methodName("getInnerPanel").parameterCount(0).build();
     private static final MethodQuerySpec GET_CHILDREN = MethodQuery.create().methodName("getChildrenCopy").parameterCount(0).build();
 
-    @After(target = @MethodMatch(methodName = "sizeChanged", parameterCount = 2))
-    public static void afterSizeChanged(AfterContext context) {
+    @After(target = @MethodMatch(methodName = "recreate", parameterCount = 0))
+    public static void afterRecreate(AfterContext context) {
+        // a subclass calling super would add the line twice
+        if (!context.isMostDerivedCall()) return;
         if (!context.hasMethod(GET_INNER_PANEL)) return;
         Object innerObj = context.getMethod(GET_INNER_PANEL).call();
         if (!(innerObj instanceof UIPanelAPI) || !context.hasMethod(GET_CHILDREN, innerObj)) return;
@@ -50,8 +54,7 @@ public class oee_CaptainPickerMasteryPatch {
         Object children = context.getMethod(GET_CHILDREN, inner).call();
         if (children instanceof List) {
             for (Object child : (List<?>) children) {
-                if (child instanceof LabelAPI && ((LabelAPI) child).getText() != null
-                        && ((LabelAPI) child).getText().startsWith(OFFICERS_PREFIX)) {
+                if (child instanceof LabelAPI && isCounter(((LabelAPI) child).getText())) {
                     officers = (LabelAPI) child;
                     break;
                 }
@@ -96,6 +99,14 @@ public class oee_CaptainPickerMasteryPatch {
         }, TooltipLocation.ABOVE);
         holder.addUIElement(el).inTL(0f, 0f);
         inner.addComponent(holder).aboveLeft((UIComponentAPI) officers, 0f);
+    }
+
+    private static boolean isCounter(String text) {
+        if (text == null) return false;
+        for (String prefix : COUNTER_PREFIXES) {
+            if (text.startsWith(prefix)) return true;
+        }
+        return false;
     }
 
     /**

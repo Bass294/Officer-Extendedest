@@ -3,7 +3,11 @@
 * **Author:** Bass
 * **Art:** (none)
 * **Writing/descriptions:** Bass
-* **Code:** Claude Opus 5.5, with Lukas04's starsector-knowledge skill, patchlib skill
+* **Code:** Claude Opus 5.5
+
+## Special thanks
+
+* Lukas and Hartley, for help in AI direction
 
 ## AI use disclaimer
 

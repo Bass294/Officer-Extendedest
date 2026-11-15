@@ -33,6 +33,8 @@ public class oee_OfficerRowPatch {
 
     private static final MethodQuerySpec GET_OFFICER_DATA = MethodQuery.create().methodName("getOfficerData").parameterCount(0).build();
     private static final MethodQuerySpec RECREATE = MethodQuery.create().methodName("recreate").parameterCount(0).build();
+    // the picker's compact list view (smaller rows and buttons)
+    private static final MethodQuerySpec IS_COMPACT = MethodQuery.create().methodName("isCompactMode").parameterCount(0).build();
     // the picker that owns the row; the row's only CaptainPickerDialog field
     private static final FieldQuerySpec PICKER = FieldQuery.create().typeName("com.fs.starfarer.coreui.CaptainPickerDialog").build();
 
@@ -45,6 +47,7 @@ public class oee_OfficerRowPatch {
         if (!(data instanceof OfficerDataAPI) || !oee_Mastery.isRespecCandidate((OfficerDataAPI) data)) return;
         Object picker = context.getField(PICKER).get();
         if (!(picker instanceof UIPanelAPI)) return;
-        oee_RespecButton.add((UIPanelAPI) self, (OfficerDataAPI) data, (UIPanelAPI) picker, context.getMethod(RECREATE));
+        boolean compact = context.hasMethod(IS_COMPACT) && Boolean.TRUE.equals(context.getMethod(IS_COMPACT).call());
+        oee_RespecButton.add((UIPanelAPI) self, (OfficerDataAPI) data, (UIPanelAPI) picker, context.getMethod(RECREATE), compact);
     }
 }
